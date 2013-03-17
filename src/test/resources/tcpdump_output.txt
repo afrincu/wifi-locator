@@ -1,0 +1,4 @@
+5540 MHz -40dB signal SA:00:00:00:00:00:00
+foo
+2475 MHz -61dB signal SA:ff:ff:ff:ff:ff:ff
+bar
