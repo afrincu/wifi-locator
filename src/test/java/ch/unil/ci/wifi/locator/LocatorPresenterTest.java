@@ -36,6 +36,7 @@ public class LocatorPresenterTest {
     verify(view).setChannel("2445 MHz");
   }
 
+  @SuppressWarnings("unchecked")
   @Test
   public void should_not_update_channel_when_no_packet() {
     LocatorView view = mock(LocatorView.class);
@@ -55,7 +56,7 @@ public class LocatorPresenterTest {
         new WifiPacket(System.currentTimeMillis(), 2445, -60, "00:00:00:00:00:00"),
         new WifiPacket(System.currentTimeMillis(), 2445, -62, "00:00:00:00:00:00")));
 
-    Thread.currentThread().sleep(5000);
+    Thread.sleep(5000);
 
     presenter.process(ImmutableList.of(
         new WifiPacket(System.currentTimeMillis(), 2445, -42, "00:00:00:00:00:00"),
