@@ -7,6 +7,22 @@
   <artifactId>wifi-locator</artifactId>
   <version>1.0-SNAPSHOT</version>
 
+  <scm>
+    <connection>scm:git:git@github.com:alexhvb/wifi-locator.git</connection>
+    <developerConnection>scm:git:git@github.com:alexhvb/wifi-locator.git</developerConnection>
+    <url>https://github.com/alexhvb/wifi-locator</url>
+    <tag>HEAD</tag>
+  </scm>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.min.version>2.2.1</maven.min.version>
+    <jdk.min.version>1.6</jdk.min.version>
+    <jdk.source.version>1.6</jdk.source.version>
+    <jdk.target.version>1.6</jdk.target.version>
+    <surefire.argLine />
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>com.google.guava</groupId>
@@ -34,6 +50,57 @@
   </dependencies>
 
   <build>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <configuration>
+            <source>${jdk.source.version}</source>
+            <target>${jdk.target.version}</target>
+          </configuration>
+          <version>3.0</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-enforcer-plugin</artifactId>
+          <version>1.2</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-install-plugin</artifactId>
+          <version>2.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-jar-plugin</artifactId>
+          <version>2.4</version>
+          <configuration>
+            <archive>
+              <addMavenDescriptor>false</addMavenDescriptor>
+            </archive>
+          </configuration>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-surefire-plugin</artifactId>
+          <configuration>
+            <runOrder>random</runOrder>
+            <argLine>${surefire.argLine}</argLine>
+          </configuration>
+          <version>2.12.4</version>
+        </plugin>
+        <plugin>
+          <groupId>org.sonatype.plugins</groupId>
+          <artifactId>jarjar-maven-plugin</artifactId>
+          <configuration>
+            <overwrite>true</overwrite>
+          </configuration>
+          <version>1.7</version>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+
     <plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
