@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>org.example</groupId>
@@ -32,5 +32,68 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <configuration>
+          <archive>
+            <manifest>
+              <mainClass>ch.unil.ci.wifi.locator.LocatorLauncher</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>jarjar-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>jarjar</goal>
+            </goals>
+            <configuration>
+              <includes>
+                <include>${project.groupId}:wifilocator</include>
+                <include>com.google.guava:guava</include>
+              </includes>
+              <rules>
+                <keep>
+                  <pattern>*.**</pattern>
+                </keep>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-enforcer-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>enforce-size</id>
+            <goals>
+              <goal>enforce</goal>
+            </goals>
+            <phase>verify</phase>
+            <configuration>
+              <rules>
+                <requireFilesSize>
+                  <maxsize>1600000</maxsize>
+                  <minsize>1400000</minsize>
+                  <files>
+                    <file>${project.build.directory}/${project.build.finalName}.jar</file>
+                  </files>
+                </requireFilesSize>
+              </rules>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>

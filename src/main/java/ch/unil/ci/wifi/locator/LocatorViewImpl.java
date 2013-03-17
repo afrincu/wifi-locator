@@ -47,7 +47,7 @@ public class LocatorViewImpl extends JFrame implements LocatorView {
 
     c.gridx = 0;
     c.gridy = 0;
-    this.add(new JLabel(new ImageIcon("src/main/resources/unil.png")), c);
+    this.add(new JLabel(new ImageIcon(getClass().getResource("/unil.png"))), c);
 
     macPanel.add(macLabel);
     macPanel.add(macTextField);
